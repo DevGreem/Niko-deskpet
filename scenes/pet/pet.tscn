@@ -1,16 +1,26 @@
 [gd_scene format=3 uid="uid://ddv24m6sk4skl"]
 
 [ext_resource type="Texture2D" uid="uid://vdecjtdxsbsi" path="res://assets/niko.png" id="1_cn888"]
-[ext_resource type="Script" uid="uid://lr1etlb2sqwh" path="res://scenes/pet/movement.gd" id="1_ggc1i"]
+[ext_resource type="Script" uid="uid://lr1etlb2sqwh" path="res://scenes/pet/pet_node.gd" id="1_ggc1i"]
+[ext_resource type="PackedScene" uid="uid://bvbt5jf0fpkkp" path="res://scenes/prompt_box/prompt_box.tscn" id="2_dw2dr"]
 [ext_resource type="Script" uid="uid://b368qafvmp6gn" path="res://scenes/pet/draggable_window.gd" id="3_r883x"]
-[ext_resource type="Script" uid="uid://cpidmb1qmq2kj" path="res://scripts/ai_requester.gd" id="4_ueflf"]
+[ext_resource type="Script" uid="uid://cpidmb1qmq2kj" path="res://scripts/ai/api/ai_requester.gd" id="4_ueflf"]
+[ext_resource type="Script" uid="uid://0tqntjr5b885" path="res://scripts/ai/conversation/ai_message.gd" id="5_uc6p5"]
+[ext_resource type="Script" uid="uid://b51srudohgmq8" path="res://scripts/ai/api/ai_api.gd" id="5_ur5mw"]
+[ext_resource type="Resource" uid="uid://dxqfau33j0xtc" path="res://content/start_message.tres" id="6_ur5mw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g04yl"]
 size = Vector2(66, 92)
 
-[node name="Pet" type="Node2D" unique_id=1608774370]
+[sub_resource type="Resource" id="Resource_uc6p5"]
+script = ExtResource("5_ur5mw")
+metadata/_custom_type_script = "uid://b51srudohgmq8"
+
+[node name="Pet" type="Node2D" unique_id=1608774370 node_paths=PackedStringArray("ai_requester", "area")]
 script = ExtResource("1_ggc1i")
-direction = Vector2(1, 0)
+ai_requester = NodePath("AIRequester")
+prompt_scene = ExtResource("2_dw2dr")
+area = NodePath("DraggableArea")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1662383978]
 scale = Vector2(3, 3)
@@ -27,7 +37,8 @@ offset = Vector2i(-84, -84)
 position = Vector2(3, 0)
 shape = SubResource("RectangleShape2D_g04yl")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1142429710]
-
 [node name="AIRequester" type="Node" parent="." unique_id=1113484720]
 script = ExtResource("4_ueflf")
+api = SubResource("Resource_uc6p5")
+url = "https://ai.hackclub.com/proxy/v1/chat/completions"
+start_messages = Array[ExtResource("5_uc6p5")]([ExtResource("6_ur5mw")])

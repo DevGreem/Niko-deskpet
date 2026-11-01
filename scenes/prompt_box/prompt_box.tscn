@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bvbt5jf0fpkkp"]
+
+[ext_resource type="StyleBox" uid="uid://balg62dbdf538" path="res://themes/talk_dialog.tres" id="1_8mdsw"]
+[ext_resource type="Script" uid="uid://b6yv115cc1pf8" path="res://scenes/prompt_box/prompt_box.gd" id="2_apgdh"]
+
+[node name="PromptBox" type="TextEdit" unique_id=1129384849]
+custom_minimum_size = Vector2(268, 68)
+offset_right = 269.0
+offset_bottom = 68.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/normal = ExtResource("1_8mdsw")
+theme_override_styles/focus = ExtResource("1_8mdsw")
+placeholder_text = "Talk with niko! Press enter to send the message."
+context_menu_enabled = false
+wrap_mode = 1
+scroll_fit_content_height = true
+script = ExtResource("2_apgdh")
+offset = Vector2(0, 50)

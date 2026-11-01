@@ -7,7 +7,7 @@ const PATH := "user://config.tres"
 @export_storage var ai_token: String = ""
 @export var model: String = ""
 
-static func load() -> UserConfig:
+static func load_res() -> UserConfig:
 	
 	if not ResourceLoader.exists(PATH):
 		var config := UserConfig.new()
@@ -19,7 +19,7 @@ static func load() -> UserConfig:
 	print("Loaded config")
 	return ResourceLoader.load(PATH)
 
-func save():
+func save() -> void:
 	var error := ResourceSaver.save(self, PATH)
 	
 	if error == OK:

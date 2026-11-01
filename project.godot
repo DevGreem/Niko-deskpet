@@ -11,14 +11,21 @@ config_version=5
 [application]
 
 config/name="Niko Deskpet"
-run/main_scene="uid://ddv24m6sk4skl"
+run/main_scene="uid://dvx6ka6mar73m"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+gdscript/warnings/unsafe_property_access=1
+gdscript/warnings/unsafe_method_access=1
+gdscript/warnings/unsafe_cast=1
+
 [display]
 
-window/size/viewport_width=200
-window/size/viewport_height=200
+window/size/viewport_width=400
+window/size/viewport_height=400
 window/size/borderless=true
 window/size/always_on_top=true
 window/size/transparent=true
@@ -30,11 +37,20 @@ window/per_pixel_transparency/allowed=true
 
 enabled=PackedStringArray("res://.godot/scenetime/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg")
 
+[gui]
+
+theme/custom_font="uid://ccq4utbc8byla"
+
 [input]
 
 drag_window={
 "deadzone": 0.2,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
+show_actions={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
 

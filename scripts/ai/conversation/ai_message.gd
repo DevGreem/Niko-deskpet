@@ -8,9 +8,8 @@ enum Role {
 	ASSISTANT
 }
 
-var type := "message"
-var role: Role
-var content: String
+@export var role: Role
+@export_multiline() var content: String
 
 static func create(_role: Role, _content: String) -> AIMessage:
 	var message := AIMessage.new()
@@ -22,7 +21,6 @@ static func create(_role: Role, _content: String) -> AIMessage:
 func to_dict() -> Dictionary[String, Variant]:
 	
 	return {
-		"type": type,
 		"role": (Role.find_key(role) as String).to_lower(),
 		"content": content
 	}
