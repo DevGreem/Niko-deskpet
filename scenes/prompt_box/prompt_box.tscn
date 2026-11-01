@@ -2,9 +2,11 @@
 
 [ext_resource type="StyleBox" uid="uid://balg62dbdf538" path="res://themes/talk_dialog.tres" id="1_8mdsw"]
 [ext_resource type="Script" uid="uid://b6yv115cc1pf8" path="res://scenes/prompt_box/prompt_box.gd" id="2_apgdh"]
+[ext_resource type="Script" uid="uid://4q5gyu2r0vr0" path="res://scripts/pinner.gd" id="3_apgdh"]
 
-[node name="PromptBox" type="TextEdit" unique_id=1129384849]
+[node name="PromptBox" type="TextEdit" unique_id=1129384849 node_paths=PackedStringArray("pinner")]
 custom_minimum_size = Vector2(268, 68)
+custom_maximum_size = Vector2(-1, 140)
 offset_right = 269.0
 offset_bottom = 68.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
@@ -15,4 +17,9 @@ context_menu_enabled = false
 wrap_mode = 1
 scroll_fit_content_height = true
 script = ExtResource("2_apgdh")
+pinner = NodePath("Pinner")
+
+[node name="Pinner" type="Node" parent="." unique_id=1138733811 node_paths=PackedStringArray("actor")]
+script = ExtResource("3_apgdh")
+actor = NodePath("..")
 offset = Vector2(0, 50)

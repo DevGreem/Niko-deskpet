@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://lr1etlb2sqwh" path="res://scenes/pet/pet_node.gd" id="1_ggc1i"]
 [ext_resource type="PackedScene" uid="uid://bvbt5jf0fpkkp" path="res://scenes/prompt_box/prompt_box.tscn" id="2_dw2dr"]
 [ext_resource type="Script" uid="uid://b368qafvmp6gn" path="res://scenes/pet/draggable_window.gd" id="3_r883x"]
+[ext_resource type="PackedScene" uid="uid://bkmbx5kwjlhel" path="res://scenes/output_box/output_box.tscn" id="3_vey2l"]
 [ext_resource type="Script" uid="uid://cpidmb1qmq2kj" path="res://scripts/ai/api/ai_requester.gd" id="4_ueflf"]
 [ext_resource type="Script" uid="uid://0tqntjr5b885" path="res://scripts/ai/conversation/ai_message.gd" id="5_uc6p5"]
 [ext_resource type="Script" uid="uid://b51srudohgmq8" path="res://scripts/ai/api/ai_api.gd" id="5_ur5mw"]
@@ -20,6 +21,7 @@ metadata/_custom_type_script = "uid://b51srudohgmq8"
 script = ExtResource("1_ggc1i")
 ai_requester = NodePath("AIRequester")
 prompt_scene = ExtResource("2_dw2dr")
+output_scene = ExtResource("3_vey2l")
 area = NodePath("DraggableArea")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1662383978]

@@ -1,9 +1,11 @@
 [gd_resource type="StyleBoxTexture" format=3 uid="uid://balg62dbdf538"]
 
-[ext_resource type="Texture2D" uid="uid://dwqpucmc00nyj" path="res://assets/background.png" id="1_yshi3"]
+[ext_resource type="Texture2D" uid="uid://dwqpucmc00nyj" path="res://assets/background.png" id="1_x4fj5"]
 
 [resource]
-texture = ExtResource("1_yshi3")
+content_margin_top = 12.0
+content_margin_bottom = 20.0
+texture = ExtResource("1_x4fj5")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0

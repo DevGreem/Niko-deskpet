@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bkmbx5kwjlhel"]
 
 [ext_resource type="StyleBox" uid="uid://balg62dbdf538" path="res://themes/talk_dialog.tres" id="1_kgd66"]
+[ext_resource type="Script" uid="uid://bqspe6qcagwd0" path="res://scenes/output_box/output_box.gd" id="2_y7hqu"]
+[ext_resource type="Script" uid="uid://4q5gyu2r0vr0" path="res://scripts/pinner.gd" id="3_wcng0"]
 
 [sub_resource type="Animation" id="Animation_76k41"]
 length = 0.001
@@ -38,17 +40,28 @@ _data = {
 &"show_text": SubResource("Animation_y7hqu")
 }
 
-[node name="OutputBox" type="RichTextLabel" unique_id=1354863563]
+[node name="OutputBox" type="RichTextLabel" unique_id=1354863563 node_paths=PackedStringArray("pinner", "anim_player")]
 custom_minimum_size = Vector2(268, 68)
+custom_maximum_size = Vector2(-1, 140)
 focus_mode = 2
 theme_override_styles/normal = ExtResource("1_kgd66")
 theme_override_styles/focus = ExtResource("1_kgd66")
 bbcode_enabled = true
 fit_content = true
+scroll_following_visible_characters = true
 selection_enabled = true
 visible_characters = 0
 visible_ratio = 0.0
+script = ExtResource("2_y7hqu")
+pinner = NodePath("Pinner")
+anim_player = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1138366651]
 libraries/ = SubResource("AnimationLibrary_wcng0")
 autoplay = &"show_text"
+
+[node name="Pinner" type="Node" parent="." unique_id=1172526738 node_paths=PackedStringArray("actor")]
+script = ExtResource("3_wcng0")
+actor = NodePath("..")
+offset = Vector2(0, 50)
+metadata/_custom_type_script = "uid://4q5gyu2r0vr0"
