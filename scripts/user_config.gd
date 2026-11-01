@@ -2,13 +2,27 @@ extends Resource
 
 class_name UserConfig
 
-const PATH := "user://config.tre"
+const PATH := "user://config.tres"
 
-var ai_token: String = ""
-var model: String = ""
+@export_storage var ai_token: String = ""
+@export var model: String = ""
 
 static func load() -> UserConfig:
+	
+	if not ResourceLoader.exists(PATH):
+		var config := UserConfig.new()
+		config.model = "deepseek/deepseek-v4.1-flash"
+		config.save()
+		print("Loaded and saved config")
+		return config
+	
+	print("Loaded config")
 	return ResourceLoader.load(PATH)
 
-static func save(config: UserConfig):
-	ResourceSaver.save(config, PATH)
+func save():
+	var error := ResourceSaver.save(self, PATH)
+	
+	if error == OK:
+		print("Saved config")
+	else:
+		print("Error on save config")
