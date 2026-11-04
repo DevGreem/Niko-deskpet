@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="FacesDeclaration" format=3 uid="uid://bpy3dhjgalfh2"]
+
+[ext_resource type="Script" uid="uid://pcsqxdsaownv" path="res://scripts/faces_declaration.gd" id="1_j3od0"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_b2x0i"]
+size = Vector2(97, 97)
+
+[resource]
+script = ExtResource("1_j3od0")
+non_exists_face = SubResource("PlaceholderTexture2D_b2x0i")
+_faces_container = Dictionary[Vector2i, String]({
+Vector2i(0, 0): "normal",
+Vector2i(0, 1): "eyes_closed_mouth_open",
+Vector2i(0, 2): "speaking",
+Vector2i(0, 3): "very_uncomfortable_looking_left",
+Vector2i(1, 0): "happy",
+Vector2i(1, 1): "gas_mask",
+Vector2i(1, 2): "shocked",
+Vector2i(1, 3): "yawning",
+Vector2i(2, 0): "crying",
+Vector2i(2, 1): "very_uncomfortable",
+Vector2i(2, 2): "upset_looking_left",
+Vector2i(2, 3): "open_mouth",
+Vector2i(3, 0): "distressed",
+Vector2i(3, 1): "crying_eyes_closed",
+Vector2i(3, 2): "upset_mouth_open",
+Vector2i(3, 3): "open_mouth_shifted_down",
+Vector2i(4, 0): "distressed_crying",
+Vector2i(4, 1): "amazed",
+Vector2i(4, 2): "upset_looking_right",
+Vector2i(4, 3): "closed_mouth",
+Vector2i(5, 0): "distressed_talking",
+Vector2i(5, 2): "freaked_out",
+Vector2i(5, 3): "looking_right",
+Vector2i(6, 0): "distressed_looking_right",
+Vector2i(6, 1): "surprised",
+Vector2i(6, 2): "freaked_out_looking_left",
+Vector2i(6, 3): "looking_left",
+Vector2i(7, 0): "eyes_closed",
+Vector2i(7, 1): "smiling",
+Vector2i(7, 2): "uncomfortable"
+})
+metadata/_custom_type_script = "uid://pcsqxdsaownv"

@@ -13,6 +13,10 @@ func _gui_input(event: InputEvent) -> void:
 		printerr("Requested not has been added!")
 		return
 	
+	if event.is_action_pressed("ui_close_dialog"):
+		self.queue_free()
+		return
+	
 	if event.is_action_pressed("ui_text_completion_accept") and not Input.is_key_pressed(KEY_SHIFT):
 		get_viewport().set_input_as_handled()
 		send()

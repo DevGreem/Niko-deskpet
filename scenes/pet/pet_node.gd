@@ -40,7 +40,7 @@ func _init_prompt_box() -> void:
 func _init_output_box(output: String, icon: String) -> void:
 	_output_box = output_scene.instantiate()
 	_output_box.pinner.manager = self
-	_output_box.text = output
+	_output_box.label.text = output
 	
 	add_child(_output_box)
 
