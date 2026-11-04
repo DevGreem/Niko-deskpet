@@ -17,6 +17,9 @@ class_name FacesDeclaration
 var faces: Array[String]:
 	get: return _faces_container.values()
 
+var faces_position: Array[Vector2i]:
+	get: return _faces_container.keys()
+
 var _string_faces_container: Dictionary[String, Vector2i] = {}
 
 func get_face_title(pos: Vector2i) -> String:

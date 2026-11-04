@@ -93,7 +93,6 @@ label = NodePath("HBoxContainer/OutputBox")
 icon = NodePath("HBoxContainer/Face")
 pinner = NodePath("Pinner")
 anim_player = NodePath("AnimationPlayer")
-_message_query = null
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1269840937]
 clip_contents = true
