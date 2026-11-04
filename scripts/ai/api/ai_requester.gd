@@ -2,7 +2,7 @@ extends Node
 
 class_name AIRequester
 
-signal answered(answer: String, icon: String)
+signal answered(answer: String)
 
 var http := HTTPRequest.new()
 @export var api: AIApi
@@ -31,9 +31,11 @@ func _ready() -> void:
 			AIMessage.create(
 				AIMessage.Role.USER,
 				"""
+				--- SYSTEM MESSAGE
 				You have regained your sight after a period of seeing nothing but darkness,
 				it’s just like when you used to lie down on the beds in the other world,
-				and you are confused as to why this keeps happening to you.
+				and you are confused as to why this keeps happening to you.\
+				---
 				"""
 			)
 		)
@@ -55,11 +57,12 @@ func request_response(prompt: String) -> void:
 	retry_request()
 
 func _on_request_completed(_result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-	var answer: Dictionary = JSON.parse_string(body.get_string_from_utf8())
 	
 	if response_code != 200:
-		printerr("Request failed!\n", answer)
-		return 
+		printerr("Request failed for some reason!\n")
+		return
+	
+	var answer: Dictionary = JSON.parse_string(body.get_string_from_utf8())
 	
 	print(JSON.stringify(answer, "\t"))
 	
@@ -73,6 +76,4 @@ func _on_request_completed(_result: int, response_code: int, _headers: PackedStr
 		)
 	)
 	
-	var dict_output: Dictionary = JSON.parse_string(output)
-	
-	answered.emit(dict_output["message"], dict_output["icon"])
+	answered.emit(output)

@@ -37,12 +37,25 @@ func _init_prompt_box() -> void:
 	
 	add_child(_prompt_box)
 
-func _init_output_box(output: String, icon: String) -> void:
+func _init_output_box(output: Array[DialogueMessage]) -> void:
 	_output_box = output_scene.instantiate()
 	_output_box.pinner.manager = self
-	_output_box.label.text = output
+	_output_box.set_message(output)
 	
 	add_child(_output_box)
 
-func _on_answer(answer: String, icon: String) -> void:
-	_init_output_box(answer, icon)
+func _on_answer(answer: String) -> void:
+	
+	var parsed_answer: Array = JSON.parse_string(answer)
+	
+	var response: Array[DialogueMessage] = []
+	
+	for dialogue: Dictionary in parsed_answer:
+		var message := DialogueMessage.new(
+			dialogue["message"],
+			dialogue["icon"]
+		)
+		
+		response.append(message)
+	
+	_init_output_box(response)

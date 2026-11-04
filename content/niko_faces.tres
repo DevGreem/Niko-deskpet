@@ -1,13 +1,11 @@
 [gd_resource type="Resource" script_class="FacesDeclaration" format=3 uid="uid://bpy3dhjgalfh2"]
 
+[ext_resource type="Texture2D" uid="uid://i5b1ljv58rfq" path="res://assets/niko-main-head.png" id="1_55i72"]
 [ext_resource type="Script" uid="uid://pcsqxdsaownv" path="res://scripts/faces_declaration.gd" id="1_j3od0"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_b2x0i"]
-size = Vector2(97, 97)
 
 [resource]
 script = ExtResource("1_j3od0")
-non_exists_face = SubResource("PlaceholderTexture2D_b2x0i")
+non_exists_face = ExtResource("1_55i72")
 _faces_container = Dictionary[Vector2i, String]({
 Vector2i(0, 0): "normal",
 Vector2i(0, 1): "eyes_closed_mouth_open",

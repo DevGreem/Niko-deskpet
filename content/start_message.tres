@@ -52,15 +52,15 @@ You must ALWAYS respond with a single, valid JSON object and NOTHING else (no ma
 
 The JSON object MUST strictly follow this exact nested structure:
 
-{
-	\"response\": [
-		{
-			\"icon\": \"icon_id_in_the_list\",
-			\"message\": The text content of this page of Niko's response goes here.\"
-		},
-		...
-	]
-}
+[
+	{
+		\"icon\": \"icon_id_in_the_list\",
+		\"message\": The text content of this page of Niko's response goes here.\"
+	},
+	...
+]
+
+With index 0 being the first message, like a queue.
 
 \"response\" is a list in case you want to deliver different icons in different messages so that the message can be easily divided; it is not mandatory to include more than one."
 metadata/_custom_type_script = "uid://0tqntjr5b885"

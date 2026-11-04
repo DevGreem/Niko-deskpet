@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://dwqpucmc00nyj" path="res://assets/background.png" id="1_wcng0"]
 [ext_resource type="Script" uid="uid://bqspe6qcagwd0" path="res://scenes/output_box/output_box.gd" id="2_y7hqu"]
 [ext_resource type="Texture2D" uid="uid://b3fhnlyhje4ce" path="res://assets/niko-head.png" id="3_7vykb"]
-[ext_resource type="Script" uid="uid://dwf4ipq2xhvy1" path="res://scripts/dialogue_message.gd" id="3_us6of"]
 [ext_resource type="Script" uid="uid://4q5gyu2r0vr0" path="res://scripts/pinner.gd" id="3_wcng0"]
 [ext_resource type="Script" uid="uid://ceo3cjqd22b5o" path="res://scripts/face_texture_rect.gd" id="4_7vykb"]
 [ext_resource type="Resource" uid="uid://bpy3dhjgalfh2" path="res://content/niko_faces.tres" id="5_b2x0i"]
@@ -94,7 +93,7 @@ label = NodePath("HBoxContainer/OutputBox")
 icon = NodePath("HBoxContainer/Face")
 pinner = NodePath("Pinner")
 anim_player = NodePath("AnimationPlayer")
-message_query = Array[ExtResource("3_us6of")]([])
+_message_query = null
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1269840937]
 clip_contents = true
