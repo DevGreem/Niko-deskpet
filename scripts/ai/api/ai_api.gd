@@ -61,6 +61,9 @@ func _get_body() -> Dictionary[String, Variant]:
 func _get_choice(output: Dictionary, idx: int) -> Dictionary:
 	return output["choices"][idx]
 
+func _get_choices(output: Dictionary) -> Array[Dictionary]:
+	return output["choices"]
+
 ## Deepsek api by default XD
 func get_output(output: Dictionary) -> String:
 	
@@ -85,3 +88,12 @@ func get_outputs(output: Dictionary) -> Array[String]:
 		)
 	
 	return arr
+
+func get_tools_called(dict: Dictionary) -> Array[Dictionary]:
+	
+	var choices := _get_choices(dict)
+	
+	for choice: Dictionary in choices:
+		pass
+	
+	return []

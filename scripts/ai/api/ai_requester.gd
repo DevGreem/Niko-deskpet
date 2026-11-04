@@ -3,6 +3,7 @@ extends Node
 class_name AIRequester
 
 signal answered(answer: String)
+signal tool_called(tool: String, args: Array)
 
 var http := HTTPRequest.new()
 @export var api: AIApi
@@ -10,6 +11,7 @@ var http := HTTPRequest.new()
 
 @export var start_messages: Array[AIMessage] = []
 @export var max_output_tokens: int = 2000
+@export var tools: AIToolDefinition = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,7 +36,7 @@ func _ready() -> void:
 				--- SYSTEM MESSAGE
 				You have regained your sight after a period of seeing nothing but darkness,
 				it’s just like when you used to lie down on the beds in the other world,
-				and you are confused as to why this keeps happening to you.\
+				and you are confused as to why this keeps happening to you.
 				---
 				"""
 			)
@@ -77,3 +79,10 @@ func _on_request_completed(_result: int, response_code: int, _headers: PackedStr
 	)
 	
 	answered.emit(output)
+	
+	var tools_called := api.get_tools_called(answer)
+	
+	for tool: Dictionary in tools_called:
+		var tool_call := AIToolCall.new()
+		
+		tool_call.from_dict(tool, true)

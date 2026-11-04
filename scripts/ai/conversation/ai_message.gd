@@ -5,7 +5,8 @@ class_name AIMessage
 enum Role {
 	SYSTEM,
 	USER,
-	ASSISTANT
+	ASSISTANT,
+	TOOL
 }
 
 @export var role: Role
@@ -21,6 +22,6 @@ static func create(_role: Role, _content: String) -> AIMessage:
 func to_dict() -> Dictionary[String, Variant]:
 	
 	return {
-		"role": (Role.find_key(role) as String).to_lower(),
+		"role": str(Role.find_key(role)).to_lower(),
 		"content": content
 	}
