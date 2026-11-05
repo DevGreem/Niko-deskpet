@@ -11,7 +11,7 @@ var http := HTTPRequest.new()
 
 @export var start_messages: Array[AIMessage] = []
 @export var max_output_tokens: int = 2000
-@export var tools: AIToolDefinition = null
+@export var tools: Array[AIToolDefinition] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,6 +25,7 @@ func _ready() -> void:
 		url,
 		config.ai_token
 	)
+	api.add_tools(tools)
 	
 	if api.conversation.is_memory_empty():
 		api.add_messages(start_messages)
@@ -58,10 +59,10 @@ func request_response(prompt: String) -> void:
 	
 	retry_request()
 
-func _on_request_completed(_result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+func _on_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	
 	if response_code != 200:
-		printerr("Request failed for some reason!\n")
+		printerr("Request failed for some reason!\nError codes: [%d, %d]" % [result, response_code])
 		return
 	
 	var answer: Dictionary = JSON.parse_string(body.get_string_from_utf8())
@@ -71,19 +72,19 @@ func _on_request_completed(_result: int, response_code: int, _headers: PackedStr
 	var output: String = api.get_output(answer)
 	print(output)
 	
-	api.add_message(
-		AIMessage.create(
-			AIMessage.Role.ASSISTANT,
-			output
-		)
-	)
+	var finish_reason := api.get_finish_reason_of_choice(answer, 0)
 	
-	answered.emit(output)
+	if not output.is_empty() and finish_reason == "stop":
+		api.add_message(
+			AIMessage.create(
+				AIMessage.Role.ASSISTANT,
+				output
+			)
+		)
+		
+		answered.emit(output)
 	
 	var tools_called := api.get_tools_called(answer)
 	
-	for tool: Dictionary in tools_called:
-		var tool_call := AIToolCall.new()
-		tool_call.from_dict(tool, true)
-		
-		tool_called.emit(tool_call)
+	for tool: AIToolCall in tools_called:
+		tool_called.emit(tool)

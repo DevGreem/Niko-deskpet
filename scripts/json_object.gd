@@ -27,6 +27,7 @@ func from_dict(dict: Dictionary, set_objects := false) -> void:
 		if dict[param] is Dictionary and info.type == TYPE_OBJECT and set_objects:
 			
 			var str_class: String = info.get("class_name", "")
+			print("Class name to trying instantiate: ", str_class)
 			
 			if str_class.is_empty():
 				continue

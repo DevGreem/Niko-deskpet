@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="AIToolDefinition" format=3 uid="uid://vqavp6xtoumj"]
+
+[ext_resource type="Script" uid="uid://caqyqmgmchqwj" path="res://scripts/ai/tools/ai_tool_definition.gd" id="1_jfk30"]
+[ext_resource type="Script" uid="uid://c38y01iy8f5lc" path="res://scripts/ai/tools/ai_tool_function.gd" id="1_jw0c7"]
+
+[sub_resource type="Resource" id="Resource_jw0c7"]
+script = ExtResource("1_jw0c7")
+name = "get_screen_info"
+description = "Return the following information about the screen:
+- Current screen size
+- Character's position"
+metadata/_custom_type_script = "uid://c38y01iy8f5lc"
+
+[resource]
+script = ExtResource("1_jfk30")
+function = SubResource("Resource_jw0c7")
+metadata/_custom_type_script = "uid://caqyqmgmchqwj"
