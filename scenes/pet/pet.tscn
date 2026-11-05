@@ -9,10 +9,7 @@
 [ext_resource type="Script" uid="uid://0tqntjr5b885" path="res://scripts/ai/conversation/ai_message.gd" id="5_uc6p5"]
 [ext_resource type="Script" uid="uid://b51srudohgmq8" path="res://scripts/ai/api/ai_api.gd" id="5_ur5mw"]
 [ext_resource type="Resource" uid="uid://dxqfau33j0xtc" path="res://content/start_message.tres" id="6_ur5mw"]
-[ext_resource type="Script" uid="uid://c38y01iy8f5lc" path="res://scripts/ai/tools/ai_tool_function.gd" id="10_2ijri"]
-[ext_resource type="Script" uid="uid://bh7tlpsq8508o" path="res://scripts/ai/tools/ai_tool_function_parameter_property.gd" id="10_d661w"]
-[ext_resource type="Script" uid="uid://iaato8q7t8xr" path="res://scripts/ai/tools/ai_tool_function_parameters.gd" id="11_fgjoj"]
-[ext_resource type="Script" uid="uid://caqyqmgmchqwj" path="res://scripts/ai/tools/ai_tool_definition.gd" id="11_ux4gr"]
+[ext_resource type="Resource" uid="uid://bo7ra153rcovw" path="res://scenes/pet/pet_move_to_tool.tres" id="10_srtiq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g04yl"]
 size = Vector2(66, 92)
@@ -20,39 +17,6 @@ size = Vector2(66, 92)
 [sub_resource type="Resource" id="Resource_uc6p5"]
 script = ExtResource("5_ur5mw")
 metadata/_custom_type_script = "uid://b51srudohgmq8"
-
-[sub_resource type="Resource" id="Resource_d661w"]
-script = ExtResource("10_d661w")
-name = "x"
-type = "integer"
-description = "X-coordinate of the user's screen"
-metadata/_custom_type_script = "uid://bh7tlpsq8508o"
-
-[sub_resource type="Resource" id="Resource_fgjoj"]
-script = ExtResource("10_d661w")
-name = "y"
-type = "integer"
-description = "Y-coordinate of the user's screen"
-metadata/_custom_type_script = "uid://bh7tlpsq8508o"
-
-[sub_resource type="Resource" id="Resource_2ijri"]
-script = ExtResource("11_fgjoj")
-_properties_inspector = Array[ExtResource("10_d661w")]([SubResource("Resource_d661w"), SubResource("Resource_fgjoj")])
-required = Array[String](["x", "y"])
-metadata/_custom_type_script = "uid://iaato8q7t8xr"
-
-[sub_resource type="Resource" id="Resource_srtiq"]
-script = ExtResource("10_2ijri")
-name = "move"
-description = "Move the pet character to an (x, y) position "
-parameters = SubResource("Resource_2ijri")
-strict = true
-metadata/_custom_type_script = "uid://c38y01iy8f5lc"
-
-[sub_resource type="Resource" id="Resource_vey2l"]
-script = ExtResource("11_ux4gr")
-function = SubResource("Resource_srtiq")
-metadata/_custom_type_script = "uid://caqyqmgmchqwj"
 
 [node name="Pet" type="Node2D" unique_id=1608774370 node_paths=PackedStringArray("ai_requester", "area")]
 script = ExtResource("1_ggc1i")
@@ -81,4 +45,6 @@ script = ExtResource("4_ueflf")
 api = SubResource("Resource_uc6p5")
 url = "https://ai.hackclub.com/proxy/v1/chat/completions"
 start_messages = Array[ExtResource("5_uc6p5")]([ExtResource("6_ur5mw")])
-tools = SubResource("Resource_vey2l")
+tools = ExtResource("10_srtiq")
+
+[connection signal="tool_called" from="AIRequester" to="." method="_on_tool_called"]

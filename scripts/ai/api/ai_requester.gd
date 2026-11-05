@@ -3,7 +3,7 @@ extends Node
 class_name AIRequester
 
 signal answered(answer: String)
-signal tool_called(tool: String, args: Array)
+signal tool_called(tool: AIToolCall)
 
 var http := HTTPRequest.new()
 @export var api: AIApi
@@ -84,5 +84,6 @@ func _on_request_completed(_result: int, response_code: int, _headers: PackedStr
 	
 	for tool: Dictionary in tools_called:
 		var tool_call := AIToolCall.new()
-		
 		tool_call.from_dict(tool, true)
+		
+		tool_called.emit(tool_call)

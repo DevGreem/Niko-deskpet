@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="AIToolDefinition" format=3 uid="uid://bo7ra153rcovw"]
+
+[ext_resource type="Script" uid="uid://bh7tlpsq8508o" path="res://scripts/ai/tools/ai_tool_function_parameter_property.gd" id="1_t81s2"]
+[ext_resource type="Script" uid="uid://iaato8q7t8xr" path="res://scripts/ai/tools/ai_tool_function_parameters.gd" id="2_ly4uo"]
+[ext_resource type="Script" uid="uid://c38y01iy8f5lc" path="res://scripts/ai/tools/ai_tool_function.gd" id="3_fjka5"]
+[ext_resource type="Script" uid="uid://caqyqmgmchqwj" path="res://scripts/ai/tools/ai_tool_definition.gd" id="4_2uohh"]
+
+[sub_resource type="Resource" id="Resource_d661w"]
+script = ExtResource("1_t81s2")
+name = "x"
+type = "integer"
+description = "X-coordinate of the user's screen"
+metadata/_custom_type_script = "uid://bh7tlpsq8508o"
+
+[sub_resource type="Resource" id="Resource_fgjoj"]
+script = ExtResource("1_t81s2")
+name = "y"
+type = "integer"
+description = "Y-coordinate of the user's screen"
+metadata/_custom_type_script = "uid://bh7tlpsq8508o"
+
+[sub_resource type="Resource" id="Resource_2ijri"]
+script = ExtResource("2_ly4uo")
+_properties_inspector = Array[ExtResource("1_t81s2")]([SubResource("Resource_d661w"), SubResource("Resource_fgjoj")])
+required = Array[String](["x", "y"])
+metadata/_custom_type_script = "uid://iaato8q7t8xr"
+
+[sub_resource type="Resource" id="Resource_srtiq"]
+script = ExtResource("3_fjka5")
+name = "move_to"
+description = "Move the pet character to an (x, y) position "
+parameters = SubResource("Resource_2ijri")
+strict = true
+metadata/_custom_type_script = "uid://c38y01iy8f5lc"
+
+[resource]
+script = ExtResource("4_2uohh")
+function = SubResource("Resource_srtiq")
+metadata/_custom_type_script = "uid://caqyqmgmchqwj"

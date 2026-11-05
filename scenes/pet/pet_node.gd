@@ -59,3 +59,26 @@ func _on_answer(answer: String) -> void:
 		response.append(message)
 	
 	_init_output_box(response)
+
+func move_to(x: int, y: int) -> void:
+	
+	var window: Window = get_window()
+	
+	var size := DisplayServer.window_get_size(window.get_window_id())
+	
+	DisplayServer.window_set_position(
+		Vector2i(x+int(size.x/2.0), y+int(size.y/2.0)),
+		window.get_window_id()
+	)
+
+func _on_tool_called(tool: AIToolCall) -> void:
+	
+	if not tool.function.name in self:
+		return
+		
+	Callable(self, tool.function.name)
+	call(tool.function.name, tool.function.arguments)
+
+## Returns Array or Variant
+func _make_args_array(method: StringName, args: Dictionary) -> Variant:
+	return 
