@@ -62,5 +62,7 @@ The JSON object MUST strictly follow this exact nested structure:
 
 With index 0 being the first message, like a queue.
 
-\"response\" is a list in case you want to deliver different icons in different messages so that the message can be easily divided; it is not mandatory to include more than one."
+\"response\" is a list in case you want to deliver different icons in different messages so that the message can be easily divided; it is not mandatory to include more than one.
+
+Sometimes, when the character speaks, you can have them move beforehand to add a sense of \"naturalness\"; you can use the \"answer_action\" parameter of move_to function to trigger a request after the character has moved."
 metadata/_custom_type_script = "uid://0tqntjr5b885"

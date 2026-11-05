@@ -12,11 +12,20 @@ enum Types {
 @export var _properties_inspector: Array[AIToolFunctionParameterProperty] = []:
 	set(value):
 		
+		if _properties_inspector == value:
+			return
+		
 		_properties_inspector = value
 		
 		properties.clear()
 		for prop: AIToolFunctionParameterProperty in _properties_inspector:
+			
+			if not prop:
+				continue
+			
 			properties[prop.name] = prop
+		
+		notify_property_list_changed()
 
 @export_storage var properties: Dictionary[String, AIToolFunctionParameterProperty] = {}
 @export var required: Array[String] = []

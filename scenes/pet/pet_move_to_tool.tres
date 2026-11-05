@@ -19,10 +19,22 @@ type = "integer"
 description = "Y-coordinate of the user's screen"
 metadata/_custom_type_script = "uid://bh7tlpsq8508o"
 
+[sub_resource type="Resource" id="Resource_t81s2"]
+script = ExtResource("1_t81s2")
+name = "answer_action"
+type = "boolean"
+description = "Instruct the program on whether it should resend a request to the AI ​​API so that the AI ​​can provide a response."
+metadata/_custom_type_script = "uid://bh7tlpsq8508o"
+
 [sub_resource type="Resource" id="Resource_2ijri"]
 script = ExtResource("2_ly4uo")
-_properties_inspector = Array[ExtResource("1_t81s2")]([SubResource("Resource_d661w"), SubResource("Resource_fgjoj")])
-required = Array[String](["x", "y"])
+_properties_inspector = Array[ExtResource("1_t81s2")]([SubResource("Resource_d661w"), SubResource("Resource_fgjoj"), SubResource("Resource_t81s2")])
+properties = Dictionary[String, ExtResource("1_t81s2")]({
+"answer_action": SubResource("Resource_t81s2"),
+"x": SubResource("Resource_d661w"),
+"y": SubResource("Resource_fgjoj")
+})
+required = Array[String](["x", "y", "answer_action"])
 metadata/_custom_type_script = "uid://iaato8q7t8xr"
 
 [sub_resource type="Resource" id="Resource_srtiq"]

@@ -20,6 +20,8 @@ class_name PetNode
 
 @export var speed := Vector2.ZERO
 
+@export var state_machine: LimboHSM	
+
 var desktop_position: Vector2i:
 	get:
 		var window := get_window().get_window_id()
@@ -31,12 +33,17 @@ var desktop_position: Vector2i:
 
 var _target_position := -Vector2i.ONE
 
+var _prompting := false
 var _prompt_box: PromptBox = null
 var _output_box: OutputBox = null
 
+func _ready() -> void:
+	state_machine.initialize(self)
+	state_machine.set_active(true)
+
 func _input(event: InputEvent) -> void:
 	
-	if is_instance_valid(_prompt_box) or is_instance_valid(_output_box) or not area.focused:
+	if is_instance_valid(_prompt_box) or is_instance_valid(_output_box) or not area.focused or _prompting:
 		return
 	
 	if event.is_action_pressed("show_actions"):
@@ -47,8 +54,14 @@ func _init_prompt_box() -> void:
 	_prompt_box = prompt_scene.instantiate()
 	_prompt_box.pinner.manager = self
 	_prompt_box.requester = ai_requester
+	_prompting = true
 	
+	_prompt_box.sended.connect(_on_send_prompt)
 	add_child(_prompt_box)
+
+func _on_send_prompt() -> void:
+	_prompting = false
+	_prompt_box = null
 
 func _init_output_box(output: Array[DialogueMessage]) -> void:
 	_output_box = output_scene.instantiate()
@@ -72,25 +85,6 @@ func _on_answer(answer: String) -> void:
 		response.append(message)
 	
 	_init_output_box(response)
-
-func _physics_process(delta: float) -> void:
-	
-	if _target_position == -Vector2i.ONE:
-		return
-	
-	if _target_position == desktop_position:
-		_target_position = -Vector2i.ONE
-		return
-	
-	var direction := Vector2(desktop_position).direction_to(Vector2(_target_position))
-	var movement := direction * speed * delta
-	
-	var window := get_window()
-	var window_pos := Vector2(DisplayServer.window_get_position(window.get_window_id()))
-	
-	window_pos += movement
-	
-	DisplayServer.window_set_position(Vector2i(window_pos), window.get_window_id())
 
 func get_screen_info(id: String) -> void:
 	
@@ -121,7 +115,7 @@ func get_screen_info(id: String) -> void:
 	
 	ai_requester.retry_request()
 
-func move_to(x: int, y: int, id: String) -> void:
+func move_to(x: int, y: int, answer_action: bool, id: String) -> void:
 	
 	_target_position = Vector2i(x, y)
 	var window: Window = get_window()
@@ -140,7 +134,7 @@ func move_to(x: int, y: int, id: String) -> void:
 				"The coordinates are larger than the current screen."
 			)
 		)
-		return
+	
 	elif pre_target_position < Vector2i.ZERO:
 		ai_requester.api.add_message(
 			AIMessage.create(
@@ -148,18 +142,35 @@ func move_to(x: int, y: int, id: String) -> void:
 				"The coordinates are lowest than Vector2i(0, 0)."
 			)
 		)
-		return
 	
-	_target_position = pre_target_position
+	else:
 	
-	ai_requester.api.add_message(
-		AIToolMessage.create(
-			AIMessage.Role.TOOL,
-			"Moving the character to the specified coordinates",
-			id
+		_target_position = pre_target_position
+		
+		ai_requester.api.add_message(
+			AIToolMessage.create(
+				AIMessage.Role.TOOL,
+				"Moving the character to the specified coordinates",
+				id
+			)
 		)
-	)
 	
+	if answer_action:
+		
+		ai_requester.api.add_message(
+			AIToolMessage.create(
+				AIMessage.Role.TOOL,
+				"""--- SYSTEM MESSAGE
+				If the user asked you to move,
+				and the action has already been performed,
+				do not move again; instead, provide a response.
+				---
+				""",
+				id
+			)
+		)
+		
+		ai_requester.retry_request()
 
 func _on_tool_called(tool: AIToolCall) -> void:
 	

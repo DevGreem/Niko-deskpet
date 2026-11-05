@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://ddv24m6sk4skl"]
 
-[ext_resource type="Texture2D" uid="uid://vdecjtdxsbsi" path="res://assets/niko.png" id="1_cn888"]
 [ext_resource type="Script" uid="uid://lr1etlb2sqwh" path="res://scenes/pet/pet_node.gd" id="1_ggc1i"]
 [ext_resource type="PackedScene" uid="uid://bvbt5jf0fpkkp" path="res://scenes/prompt_box/prompt_box.tscn" id="2_dw2dr"]
 [ext_resource type="Script" uid="uid://b368qafvmp6gn" path="res://scenes/pet/draggable_window.gd" id="3_r883x"]
@@ -12,6 +11,10 @@
 [ext_resource type="Resource" uid="uid://bo7ra153rcovw" path="res://scenes/pet/pet_move_to_tool.tres" id="10_srtiq"]
 [ext_resource type="Script" uid="uid://caqyqmgmchqwj" path="res://scripts/ai/tools/ai_tool_definition.gd" id="11_ux4gr"]
 [ext_resource type="Resource" uid="uid://vqavp6xtoumj" path="res://scenes/pet/pet_get_screen_info_tool.tres" id="12_ux4gr"]
+[ext_resource type="SpriteFrames" uid="uid://ca7f4jxv2dp5o" path="res://scenes/pet/niko_frames.tres" id="13_d661w"]
+[ext_resource type="Script" uid="uid://d0qgkgrw6sssg" path="res://scenes/pet/niko_idle_state.gd" id="14_fgjoj"]
+[ext_resource type="Script" uid="uid://d24tshfp8y5ax" path="res://scenes/pet/niko_hsm.gd" id="14_qe2g6"]
+[ext_resource type="Script" uid="uid://p4vw5git2phx" path="res://scenes/pet/niko_moving_state.gd" id="16_r6qmo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g04yl"]
 size = Vector2(66, 92)
@@ -20,20 +23,19 @@ size = Vector2(66, 92)
 script = ExtResource("5_ur5mw")
 metadata/_custom_type_script = "uid://b51srudohgmq8"
 
-[node name="Pet" type="Node2D" unique_id=1608774370 node_paths=PackedStringArray("ai_requester", "area")]
+[node name="Pet" type="Node2D" unique_id=1608774370 node_paths=PackedStringArray("ai_requester", "area", "state_machine")]
 script = ExtResource("1_ggc1i")
 ai_requester = NodePath("AIRequester")
 prompt_scene = ExtResource("2_dw2dr")
 output_scene = ExtResource("3_vey2l")
 area = NodePath("DraggableArea")
 speed = Vector2(200, 200)
+state_machine = NodePath("LimboHSM")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1662383978]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=754527527]
 scale = Vector2(3, 3)
-texture = ExtResource("1_cn888")
-hframes = 12
-vframes = 12
-frame = 25
+sprite_frames = ExtResource("13_d661w")
+frame_progress = 0.81763715
 
 [node name="DraggableArea" type="Area2D" parent="." unique_id=372469868]
 script = ExtResource("3_r883x")
@@ -49,5 +51,19 @@ api = SubResource("Resource_uc6p5")
 url = "https://ai.hackclub.com/proxy/v1/chat/completions"
 start_messages = Array[ExtResource("5_uc6p5")]([ExtResource("6_ur5mw")])
 tools = Array[ExtResource("11_ux4gr")]([ExtResource("10_srtiq"), ExtResource("12_ux4gr")])
+
+[node name="LimboHSM" type="LimboHSM" parent="." unique_id=315247281 node_paths=PackedStringArray("_start_state")]
+script = ExtResource("14_qe2g6")
+_start_state = NodePath("Idle")
+
+[node name="Idle" type="LimboState" parent="LimboHSM" unique_id=1618880187 node_paths=PackedStringArray("moving_state", "anim_sprite")]
+script = ExtResource("14_fgjoj")
+moving_state = NodePath("../Moving")
+anim_sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="Moving" type="LimboState" parent="LimboHSM" unique_id=500409901 node_paths=PackedStringArray("idle_state", "anim_sprite")]
+script = ExtResource("16_r6qmo")
+idle_state = NodePath("../Idle")
+anim_sprite = NodePath("../../AnimatedSprite2D")
 
 [connection signal="tool_called" from="AIRequester" to="." method="_on_tool_called"]

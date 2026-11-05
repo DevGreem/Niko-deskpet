@@ -23,8 +23,7 @@ func from_dict(dict: Dictionary, set_objects := false) -> void:
 		var info: Dictionary = obj_props[param]
 		var value: Variant = dict[param]
 		
-		## Not added
-		if dict[param] is Dictionary and info.type == TYPE_OBJECT and set_objects:
+		if value is Dictionary and info.type == TYPE_OBJECT and set_objects:
 			
 			var str_class: String = info.get("class_name", "")
 			print("Class name to trying instantiate: ", str_class)

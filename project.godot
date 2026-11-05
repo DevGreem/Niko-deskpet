@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Niko Deskpet"
+config/version="0.1"
 run/main_scene="uid://dvx6ka6mar73m"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
