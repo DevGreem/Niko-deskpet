@@ -35,7 +35,7 @@ state_machine = NodePath("LimboHSM")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=754527527]
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("13_d661w")
-frame_progress = 0.81763715
+frame_progress = 0.25966623
 
 [node name="DraggableArea" type="Area2D" parent="." unique_id=372469868]
 script = ExtResource("3_r883x")
