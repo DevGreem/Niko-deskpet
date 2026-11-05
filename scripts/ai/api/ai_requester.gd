@@ -20,6 +20,9 @@ func _ready() -> void:
 	
 	var config := UserConfig.load_res()
 	
+	if not url:
+		url = config.provider_url
+	
 	api.connect_api(
 		http,
 		url,

@@ -48,7 +48,6 @@ shape = SubResource("RectangleShape2D_g04yl")
 [node name="AIRequester" type="Node" parent="." unique_id=1113484720]
 script = ExtResource("4_ueflf")
 api = SubResource("Resource_uc6p5")
-url = "https://ai.hackclub.com/proxy/v1/chat/completions"
 start_messages = Array[ExtResource("5_uc6p5")]([ExtResource("6_ur5mw")])
 tools = Array[ExtResource("11_ux4gr")]([ExtResource("10_srtiq"), ExtResource("12_ux4gr")])
 

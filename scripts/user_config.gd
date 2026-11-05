@@ -4,6 +4,7 @@ class_name UserConfig
 
 const PATH := "user://config.tres"
 
+@export var provider_url: String = ""
 @export_storage var ai_token: String = ""
 @export var model: String = ""
 
@@ -11,6 +12,7 @@ static func load_res() -> UserConfig:
 	
 	if not ResourceLoader.exists(PATH):
 		var config := UserConfig.new()
+		config.provider_url = "https://ai.hackclub.com/proxy/v1/chat/completions"
 		config.model = "deepseek/deepseek-v4.1-flash"
 		config.save()
 		print("Loaded and saved config")
