@@ -34,6 +34,9 @@ func from_dict(dict: Dictionary, set_objects := false) -> void:
 			
 			var param_class: Object = _init_class_by_name(str_class)
 			
+			if param_class == null:
+				push_error("Cannot be instantiated JsonObject %s for %s" % [str_class, param])
+			
 			if param_class is JsonObject:
 				param_class.from_dict(value as Dictionary, set_objects)
 				self[param] = param_class
@@ -46,7 +49,15 @@ func from_dict(dict: Dictionary, set_objects := false) -> void:
 
 func _init_class_by_name(name: String) -> Object:
 	
-	if not ClassDB.class_exists(name):
-		return null
+	if ClassDB.class_exists(name):
+		return ClassDB.instantiate(name)
 	
-	return ClassDB.instantiate(name)
+	for entry: Dictionary in ProjectSettings.get_global_class_list():
+		
+		if entry.get("class", "") != name:
+			continue
+		
+		var script: Script = load(entry.get("path", ""))
+		return script.new()
+	
+	return null

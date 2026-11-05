@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://dxqfau33j0xtc" path="res://content/start_message.tres" id="6_ur5mw"]
 [ext_resource type="Resource" uid="uid://bo7ra153rcovw" path="res://scenes/pet/pet_move_to_tool.tres" id="10_srtiq"]
 [ext_resource type="Script" uid="uid://caqyqmgmchqwj" path="res://scripts/ai/tools/ai_tool_definition.gd" id="11_ux4gr"]
+[ext_resource type="Resource" uid="uid://vqavp6xtoumj" path="res://scenes/pet/pet_get_screen_info_tool.tres" id="12_ux4gr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g04yl"]
 size = Vector2(66, 92)
@@ -25,6 +26,7 @@ ai_requester = NodePath("AIRequester")
 prompt_scene = ExtResource("2_dw2dr")
 output_scene = ExtResource("3_vey2l")
 area = NodePath("DraggableArea")
+speed = Vector2(200, 200)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1662383978]
 scale = Vector2(3, 3)
@@ -46,6 +48,6 @@ script = ExtResource("4_ueflf")
 api = SubResource("Resource_uc6p5")
 url = "https://ai.hackclub.com/proxy/v1/chat/completions"
 start_messages = Array[ExtResource("5_uc6p5")]([ExtResource("6_ur5mw")])
-tools = Array[ExtResource("11_ux4gr")]([ExtResource("10_srtiq")])
+tools = Array[ExtResource("11_ux4gr")]([ExtResource("10_srtiq"), ExtResource("12_ux4gr")])
 
 [connection signal="tool_called" from="AIRequester" to="." method="_on_tool_called"]

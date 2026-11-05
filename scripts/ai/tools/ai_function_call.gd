@@ -10,3 +10,9 @@ func to_dict() -> Dictionary[String, Variant]:
 		"name": name,
 		"arguments": arguments
 	}
+
+func from_dict(dict: Dictionary, _set_objects := false) -> void:
+	name = dict.get("name", "")
+	arguments.assign(
+		JSON.parse_string(dict["arguments"])
+	)

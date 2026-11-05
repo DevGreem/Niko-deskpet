@@ -92,7 +92,7 @@ func _physics_process(delta: float) -> void:
 	
 	DisplayServer.window_set_position(Vector2i(window_pos), window.get_window_id())
 
-func get_screen_info() -> void:
+func get_screen_info(id: String) -> void:
 	
 	var window: Window = get_window()
 	
@@ -100,24 +100,28 @@ func get_screen_info() -> void:
 	
 	var screen_size := DisplayServer.screen_get_size(screen_id)
 	
+	var message_content: Dictionary[String, Variant] = {
+		"screen_size": {
+			"width": screen_size.x,
+			"height": screen_size.y
+		},
+		"pet_position": {
+			"x": desktop_position.x,
+			"y": desktop_position.y
+		}
+	}
+	
 	ai_requester.api.add_message(
-		AIMessage.create(
+		AIToolMessage.create(
 			AIMessage.Role.TOOL,
-			"""
-			Screen size: (%d, %d),
-			Pet position: (%d, %d)
-			""" % [
-				screen_size.x,
-				screen_size.y,
-				desktop_position.x,
-				desktop_position.y
-			]
+			JSON.stringify(message_content),
+			id
 		)
 	)
 	
 	ai_requester.retry_request()
 
-func move_to(x: int, y: int) -> void:
+func move_to(x: int, y: int, id: String) -> void:
 	
 	_target_position = Vector2i(x, y)
 	var window: Window = get_window()
@@ -149,9 +153,10 @@ func move_to(x: int, y: int) -> void:
 	_target_position = pre_target_position
 	
 	ai_requester.api.add_message(
-		AIMessage.create(
+		AIToolMessage.create(
 			AIMessage.Role.TOOL,
-			"Moving the character to the specified coordinates"
+			"Moving the character to the specified coordinates",
+			id
 		)
 	)
 	
@@ -166,6 +171,7 @@ func _on_tool_called(tool: AIToolCall) -> void:
 	if args == null:
 		return
 	
+	args.append(tool.id)
 	callv(tool.function.name, args)
 
 ## Returns Array or Variant

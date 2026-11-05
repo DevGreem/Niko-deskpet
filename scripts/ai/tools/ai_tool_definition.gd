@@ -22,7 +22,5 @@ func _function_dict(dict: Dictionary[String, Variant]) -> void:
 
 func _validate_property(property: Dictionary) -> void:
 	
-	if property.type == AIToolTypes.Types.FUNCTION:
-		pass
-	else:
+	if property.name == "function" and type != AIToolTypes.Types.FUNCTION:
 		property.usage = PROPERTY_USAGE_NONE
